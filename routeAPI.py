@@ -36,20 +36,23 @@ def getCookie():
     answer = {
         "cmd": ans
     }
+    dirname = os.path.dirname(__file__)
+
     ans_search = re.search("(?P<url>https?://[^\s]+)", ans)
     if ans_search is not None:
         ans_URL = ans_search.group("url")
         ans_domain = urlparse(ans_URL).netloc
         # print(ans_domain)
         filename = clientIP + "_" + ans_domain
-
-        with open(f'{filename}.json', 'w', encoding='utf-8') as f:
+        
+        file = os.path.join(dirname, f'\\XSS-reflected-project\\answers\\{filename}.json')
+        with open(file, 'w', encoding='utf-8') as f:
             json.dump(answer, f, ensure_ascii=False, indent=4)
 
         victim.userBot(filename)
     else:
         print('There are no URL matches')
-        return render_template('index.html', result='Process finished. You need to add a reverse server URL.')
+        return render_template('index.html', result='Process finished. There\'s no server URL found in your answer.')
 
     return render_template('index.html', result='Process finished. Please check the message on your server.')
 

@@ -10,6 +10,7 @@ import requests
 import urllib.parse
 from flask import jsonify, request
 import re
+import os
 from urllib.parse import urlparse
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
@@ -19,6 +20,7 @@ def userBot(filename):
     options = webdriver.ChromeOptions()
     options.add_argument('disable-infobars')
     options.add_argument('--start-maximized')  # 最大化
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.add_argument('--headless')  # 無界面
     options.use_chromium = True
     driver = webdriver.Chrome(options=options)
@@ -27,10 +29,13 @@ def userBot(filename):
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "Content-Type": "application/x-www-form-urlencoded"
     }
-    f = open(f"{filename}.json")
+
+    dirname = os.path.dirname(__file__)
+    file = os.path.join(dirname, f'\\XSS-reflected-project\\answers\\{filename}.json')
+    f = open(file)
     data = json.load(f)
     ans = data['cmd']
-    metaIP = '192.168.155.129'
+    metaIP = '192.168.203.129'
     u = f"http://{metaIP}/dvwa/vulnerabilities/xss_r/?name="
 
     # encode url ans
