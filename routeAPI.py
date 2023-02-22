@@ -44,8 +44,8 @@ def getCookie():
         ans_domain = urlparse(ans_URL).netloc
         # print(ans_domain)
         filename = clientIP + "_" + ans_domain
-        
-        file = os.path.join(dirname, f'\\XSS-reflected-project\\answers\\{filename}.json')
+        #file = os.path.join(dirname, f'\\XSS-reflected-project\\answers\\{filename}.json') ### for windows dir path
+        file = os.path.join(dirname, f'../XSS-reflected-project/answers/{filename}.json')  ### for linux dir path
         with open(file, 'w', encoding='utf-8') as f:
             json.dump(answer, f, ensure_ascii=False, indent=4)
 

