@@ -43,13 +43,13 @@ def userBot(filename):
     }
 
     dirname = os.path.dirname(__file__)
-    #file = os.path.join(dirname, f'\\XSS-reflected-project\\answers\\{filename}.json') ### for windows dir path
+    #file = os.path.join(dirname, f'\\XSS-reflected-project\\answers\\{filename}.json') 
     file = os.path.join(dirname, f'../XSS-reflected-project/answers/{filename}.json') ### for linux dir path
     f = open(file)
     data = json.load(f)
     ans = data['cmd']
     with open('dvwaIP.txt', 'r') as f:
-    	dvwaIP = f.read()
+        dvwaIP = f.readline().strip("\n")
     u = f"http://{dvwaIP}/dvwa/vulnerabilities/xss_r/?name="
 
     # encode url ans
@@ -66,7 +66,7 @@ def userBot(filename):
         By.XPATH, '/html/body/div/form/fieldset/input[2]').send_keys("password", Keys.ENTER)
     
     with open('flag.txt', 'r') as f:
-    	flag = f.read()
+        flag = f.readline().strip("\n")
     	
     # Change severity to low
     sleep(1)
@@ -102,19 +102,9 @@ def userBot(filename):
     #driver.execute_script("window.open('');")
     # Switch to the new tab
     #driver.switch_to.window(driver.window_handles[1])
+    
     driver.get(queryTab)
     sleep(1)
-    #try:
-    #    WebDriverWait(driver, 5).until(EC.presence_of_element_located(
-    #        (By.CLASS_NAME, "loginInput"))).send_keys(Keys.TAB)
-    #    driver.find_element(
-    #        By.XPATH, '/html/body/div/form/fieldset/input[1]').send_keys("admin")
-    #    driver.find_element(
-    #        By.XPATH, '/html/body/div/form/fieldset/input[2]').send_keys("password", Keys.ENTER)
-    #    print("It needs to login twice in the first time.")
-    #except:
-    #    print("It's no need to login twice.")
-    #sleep(1)
 
     # Send "finish msg" to Attacker Kali server
     try:
